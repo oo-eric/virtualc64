@@ -30,6 +30,7 @@
 #include "Kingsoft.h"
 #include "Mach5.h"
 #include "MagicDesk.h"
+#include "Midi.h"
 #include "MikroAss.h"
 #include "Ocean.h"
 #include "PageFox.h"

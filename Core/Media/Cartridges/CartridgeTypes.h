@@ -104,6 +104,7 @@ enum class CartridgeType : long
     ISEPIC,
     GEO_RAM,
     REU,
+    MIDI_DATEL,
     NONE
 };
 
@@ -194,6 +195,7 @@ struct CartridgeTypeEnum : Reflection<CartridgeTypeEnum, CartridgeType> {
             case CartridgeType::ISEPIC:             return "ISEPIC";
             case CartridgeType::GEO_RAM:            return "GEO_RAM";
             case CartridgeType::REU:                return "REU";
+            case CartridgeType::MIDI_DATEL:         return "MIDI_DATEL";
             case CartridgeType::NONE:               return "NONE";
         }
         return "???";

@@ -1422,6 +1422,23 @@ ExpansionPortAPI::attachIsepicCartridge()
 }
 
 void
+ExpansionPortAPI::attachMidiCartridge()
+{
+    expansionPort->attachMidiCartridge();
+    emu->markAsDirty();
+}
+
+void
+ExpansionPortAPI::receiveMidiByte(u8 byte)
+{
+    // Thread-safe: bypasses command queue, writes directly to ring buffer
+    auto *cart = expansionPort->getCartridge();
+    if (cart && cart->getCartridgeType() == CartridgeType::MIDI_DATEL) {
+        static_cast<MidiCartridge *>(cart)->receiveMidiByte(byte);
+    }
+}
+
+void
 ExpansionPortAPI::detachCartridge()
 {
     expansionPort->detachCartridge();

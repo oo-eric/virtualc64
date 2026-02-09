@@ -806,6 +806,16 @@ NSString *EventSlotName(EventSlot slot)
     [self eport]->attachIsepicCartridge();
 }
 
+- (void)attachMidiCartridge
+{
+    [self eport]->attachMidiCartridge();
+}
+
+- (void)receiveMidiByte:(uint8_t)byte
+{
+    [self eport]->receiveMidiByte(byte);
+}
+
 - (void)detachCartridge
 {
     [self eport]->detachCartridge();

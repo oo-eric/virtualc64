@@ -19,6 +19,7 @@ Kcs.cpp
 Kingsoft.cpp
 Mach5.cpp
 MagicDesk.cpp
+Midi.cpp
 MikroAss.cpp
 Ocean.cpp
 PageFox.cpp

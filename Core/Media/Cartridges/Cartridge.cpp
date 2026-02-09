@@ -74,6 +74,7 @@ Cartridge::isSupportedType(CartridgeType type)
         case CartridgeType::ISEPIC:
         case CartridgeType::GEO_RAM:
         case CartridgeType::REU:
+        case CartridgeType::MIDI_DATEL:
 
             return true;
 
@@ -139,6 +140,7 @@ Cartridge::makeWithType(C64 &c64, CartridgeType type)
         case CartridgeType::ISEPIC:            cart = new Isepic(c64); break;
         case CartridgeType::GEO_RAM:           cart = new GeoRAM(c64); break;
         case CartridgeType::REU:               cart = new Reu(c64); break;
+        case CartridgeType::MIDI_DATEL:        cart = new MidiCartridge(c64); break;
 
         default:
             throw AppError(Fault::CRT_UNSUPPORTED, CRTFile::cartridgeTypeName(type));

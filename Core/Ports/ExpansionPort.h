@@ -193,6 +193,10 @@ public:
     void attachReu(isize capacity);
     void attachGeoRam(isize capacity);
     void attachIsepicCartridge();
+    void attachMidiCartridge();
+
+    // Returns the attached cartridge (or nullptr)
+    Cartridge *getCartridge() { return cartridge.get(); }
 
     // Removes a cartridge from the expansion port (if any)
     void detachCartridge();

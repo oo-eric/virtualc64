@@ -84,6 +84,10 @@
 		504C436924AF29AC00E69CAE /* Zaxxon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 504C42B024AF29AB00E69CAE /* Zaxxon.cpp */; };
 		504C436A24AF29AC00E69CAE /* FreezeFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 504C42B124AF29AB00E69CAE /* FreezeFrame.cpp */; };
 		504C436B24AF29AC00E69CAE /* MikroAss.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 504C42B624AF29AB00E69CAE /* MikroAss.cpp */; };
+		5A569B032DDE79DD00079CB3 /* Midi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A39622DDE354000805641 /* Midi.cpp */; };
+		5A5CCB472DDEA8FE00DD6267 /* Midi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A39622DDE354000805641 /* Midi.cpp */; };
+		5A4D28A42DDE744100132560 /* MIDIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0451712DDE574D006A51C7 /* MIDIController.swift */; };
+		5AD911722DDEA5BE00E0B971 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7E67642DDEB23C00D908C8 /* CoreMIDI.framework */; };
 		504C436C24AF29AC00E69CAE /* Isepic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 504C42BA24AF29AB00E69CAE /* Isepic.cpp */; };
 		504C436D24AF29AC00E69CAE /* Rex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 504C42BC24AF29AB00E69CAE /* Rex.cpp */; };
 		504C436E24AF29AC00E69CAE /* Epyx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 504C42BD24AF29AB00E69CAE /* Epyx.cpp */; };
@@ -558,6 +562,7 @@
 
 /* Begin PBXFileReference section */
 		025229EE0AF27E740024DAB3 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		5A7E67642DDEB23C00D908C8 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<absolute>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -675,6 +680,7 @@
 		504C429824AF29AB00E69CAE /* FinalIII.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FinalIII.cpp; sourceTree = "<group>"; };
 		504C429924AF29AB00E69CAE /* SuperGames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperGames.h; sourceTree = "<group>"; };
 		504C429A24AF29AB00E69CAE /* MikroAss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MikroAss.h; sourceTree = "<group>"; };
+		5A616F4F2DDE433600328849 /* Midi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Midi.h; sourceTree = "<group>"; };
 		504C429B24AF29AB00E69CAE /* SuperGames.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SuperGames.cpp; sourceTree = "<group>"; };
 		504C429C24AF29AB00E69CAE /* Comal80.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comal80.h; sourceTree = "<group>"; };
 		504C429D24AF29AB00E69CAE /* Mach5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mach5.cpp; sourceTree = "<group>"; };
@@ -703,6 +709,7 @@
 		504C42B424AF29AB00E69CAE /* WarpSpeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WarpSpeed.h; sourceTree = "<group>"; };
 		504C42B524AF29AB00E69CAE /* CustomCartridges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCartridges.h; sourceTree = "<group>"; };
 		504C42B624AF29AB00E69CAE /* MikroAss.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MikroAss.cpp; sourceTree = "<group>"; };
+		5A7A39622DDE354000805641 /* Midi.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Midi.cpp; sourceTree = "<group>"; };
 		504C42B724AF29AB00E69CAE /* MagicDesk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicDesk.h; sourceTree = "<group>"; };
 		504C42B824AF29AB00E69CAE /* Zaxxon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Zaxxon.h; sourceTree = "<group>"; };
 		504C42B924AF29AB00E69CAE /* Expert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Expert.h; sourceTree = "<group>"; };
@@ -880,6 +887,7 @@
 		50650F442DF23C81008AD660 /* Texture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
 		50650F452DF23C8A008AD660 /* Texture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
 		50653EFB1EF8F347008AA1F2 /* KeyboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardController.swift; sourceTree = "<group>"; };
+		5A0451712DDE574D006A51C7 /* MIDIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIController.swift; sourceTree = "<group>"; };
 		5066B4152C7CCFA0003AEEE8 /* CoreComponentTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreComponentTypes.h; sourceTree = "<group>"; };
 		506A8A862B88D00200B95383 /* Configurable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Configurable.cpp; sourceTree = "<group>"; };
 		506A8A872B88D00200B95383 /* Configurable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configurable.h; sourceTree = "<group>"; };
@@ -1206,6 +1214,7 @@
 				50A0E0210A8F33120067714C /* IOKit.framework in Frameworks */,
 				50A0E0250A8F332A0067714C /* System.framework in Frameworks */,
 				025229EF0AF27E740024DAB3 /* CoreAudio.framework in Frameworks */,
+				5AD911722DDEA5BE00E0B971 /* CoreMIDI.framework in Frameworks */,
 				50F2381E12DF505B00B1F275 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1264,6 +1273,7 @@
 				5051A1551B884EBE00CBFB5A /* AVFoundation.framework */,
 				50F2381D12DF505B00B1F275 /* Quartz.framework */,
 				025229EE0AF27E740024DAB3 /* CoreAudio.framework */,
+				5A7E67642DDEB23C00D908C8 /* CoreMIDI.framework */,
 				50A0E0240A8F332A0067714C /* System.framework */,
 				50A0E0200A8F33120067714C /* IOKit.framework */,
 				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
@@ -1417,6 +1427,7 @@
 				50C9B3C41F879A3900EA35C6 /* GamePadManager.swift */,
 				50B1A61C25A2368D00201A2C /* DeviceDatabase.swift */,
 				50653EFB1EF8F347008AA1F2 /* KeyboardController.swift */,
+				5A0451712DDE574D006A51C7 /* MIDIController.swift */,
 				50D2A69F210F20F700F13D43 /* VirtualKeyboardController.swift */,
 				50FE5B352039B3B7006CE7C7 /* MacKey.swift */,
 			);
@@ -1640,6 +1651,8 @@
 				504C42AC24AF29AB00E69CAE /* MagicDesk.cpp */,
 				504C429A24AF29AB00E69CAE /* MikroAss.h */,
 				504C42B624AF29AB00E69CAE /* MikroAss.cpp */,
+				5A616F4F2DDE433600328849 /* Midi.h */,
+				5A7A39622DDE354000805641 /* Midi.cpp */,
 				504C429624AF29AB00E69CAE /* Ocean.h */,
 				504C429124AF29AB00E69CAE /* Ocean.cpp */,
 				50A9A087250DE90900723D32 /* PageFox.h */,
@@ -2425,6 +2438,7 @@
 				50E5BF742BA81E710004712B /* Monitor.cpp in Sources */,
 				50726F622961C9AC0031F2F5 /* VICIITable.cpp in Sources */,
 				50726F872961CA0D0031F2F5 /* MikroAss.cpp in Sources */,
+				5A569B032DDE79DD00079CB3 /* Midi.cpp in Sources */,
 				50726F7D2961C9E80031F2F5 /* Joystick.cpp in Sources */,
 				50726F8F2961CA0D0031F2F5 /* Ocean.cpp in Sources */,
 				50726F922961CA0D0031F2F5 /* StarDos.cpp in Sources */,
@@ -2745,6 +2759,7 @@
 				504C437A24AF29AC00E69CAE /* AnyFile.cpp in Sources */,
 				50D5F88A24F5573D0062EF13 /* DiskErrorController.swift in Sources */,
 				50C9B3C51F879A3900EA35C6 /* GamePadManager.swift in Sources */,
+				5A4D28A42DDE744100132560 /* MIDIController.swift in Sources */,
 				509280CF2930A1B6006E1966 /* PeddleUtils.cpp in Sources */,
 				504C438D24AF29AC00E69CAE /* VICII.cpp in Sources */,
 				507E7AA224FB897D00AB433C /* Screenshot.swift in Sources */,
@@ -2775,6 +2790,7 @@
 				504C437E24AF29AC00E69CAE /* TAPFile.cpp in Sources */,
 				50E9B92F201FA92C00065A89 /* Alerts.swift in Sources */,
 				504C436B24AF29AC00E69CAE /* MikroAss.cpp in Sources */,
+				5A5CCB472DDEA8FE00DD6267 /* Midi.cpp in Sources */,
 				500634622C0EF1A400D60D96 /* DatasetteBase.cpp in Sources */,
 				506D3DD020224BF4009742CF /* MyDocument.swift in Sources */,
 				5036E0BB261AEF000048E66A /* CommanderConsole.cpp in Sources */,

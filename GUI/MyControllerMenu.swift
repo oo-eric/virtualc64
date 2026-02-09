@@ -151,7 +151,10 @@ extension MyController: NSMenuItemValidation {
             
         case #selector(MyController.attachIsepicAction(_:)):
             item.state = (emu.expansionport.traits.type == .ISEPIC) ? .on : .off
-            
+
+        case #selector(MyController.attachMidiAction(_:)):
+            item.state = (emu.expansionport.traits.type == .MIDI_DATEL) ? .on : .off
+
         case #selector(MyController.detachCartridgeAction(_:)):
             return emu.expansionport.cartridgeAttached()
 
@@ -1041,12 +1044,34 @@ extension MyController: NSMenuItemValidation {
     }
     
     @IBAction func attachIsepicAction(_ sender: Any!) {
-        
+
         if let emu = emu {
             emu.expansionport.attachIsepicCartridge()
         }
     }
-    
+
+    @IBAction func attachMidiAction(_ sender: Any!) {
+
+        if let emu = emu {
+
+            if emu.expansionport.traits.type == .MIDI_DATEL {
+
+                // Disable MIDI: stop controller and detach cartridge
+                midiController?.stop()
+                midiController = nil
+                emu.expansionport.detachCartridge()
+
+            } else {
+
+                // Enable MIDI: attach cartridge and start controller
+                emu.expansionport.attachMidiCartridge()
+                let controller = MIDIController()
+                controller.start(expansionPort: emu.expansionport)
+                midiController = controller
+            }
+        }
+    }
+
     @IBAction func pressCartridgeButton1Action(_ sender: NSButton!) {
         
         if let emu = emu {

@@ -241,6 +241,13 @@ ExpansionPort::attachIsepicCartridge()
 }
 
 void
+ExpansionPort::attachMidiCartridge()
+{
+    debug(EXP_DEBUG, "Attaching MIDI (Datel) cartridge\n");
+    attachCartridge(new MidiCartridge(c64));
+}
+
+void
 ExpansionPort::detachCartridge()
 {
     if (cartridge) {

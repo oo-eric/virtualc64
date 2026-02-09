@@ -623,6 +623,15 @@ struct ExpansionPortAPI : public API {
      */
     void attachIsepicCartridge();
 
+    /** @brief  Attaches a MIDI (Datel) cartridge to the expansion port.
+     */
+    void attachMidiCartridge();
+
+    /** @brief  Sends a raw MIDI byte to the attached MIDI cartridge.
+     *  Thread-safe. Called from CoreMIDI callback thread.
+     */
+    void receiveMidiByte(u8 byte);
+
     /** @brief  Detaches the currently plugged in cartridge
      */
     void detachCartridge();
