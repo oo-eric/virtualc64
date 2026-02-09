@@ -19,7 +19,7 @@ class MIDIController {
     private var inputPort = MIDIPortRef()
 
     // Reference to the expansion port proxy for sending MIDI bytes
-    private weak var expansionPort: ExpansionPortProxy?
+    private var expansionPort: ExpansionPortProxy?
 
     // Whether the controller is currently active
     private(set) var active = false
@@ -59,6 +59,8 @@ class MIDIController {
 
         connectAllSources()
         active = true
+
+        print("MIDIController: Started (sources: \(MIDIGetNumberOfSources()))")
     }
 
     func stop() {
@@ -71,6 +73,8 @@ class MIDIController {
 
         expansionPort = nil
         active = false
+
+        print("MIDIController: Stopped")
     }
 
     // MARK: - Source management
@@ -78,11 +82,21 @@ class MIDIController {
     func connectAllSources() {
 
         let sourceCount = MIDIGetNumberOfSources()
+        print("MIDIController: Connecting to \(sourceCount) source(s)")
+
         for i in 0..<sourceCount {
             let source = MIDIGetSource(i)
+
+            // Log source name
+            var name: Unmanaged<CFString>?
+            MIDIObjectGetStringProperty(source, kMIDIPropertyName, &name)
+            let sourceName = name?.takeRetainedValue() as String? ?? "Unknown"
+
             let status = MIDIPortConnectSource(inputPort, source, nil)
             if status == noErr {
-                print("MIDIController: Connected to source \(i)")
+                print("MIDIController: Connected to '\(sourceName)' (source \(i))")
+            } else {
+                print("MIDIController: Failed to connect to '\(sourceName)' (error \(status))")
             }
         }
     }
@@ -100,21 +114,101 @@ class MIDIController {
 
     private func handlePacketList(_ packetList: UnsafePointer<MIDIPacketList>) {
 
-        guard let port = expansionPort else { return }
+        guard let port = expansionPort else {
+            print("MIDIController: expansionPort is nil, dropping MIDI data")
+            return
+        }
 
         var packet = packetList.pointee.packet
         for _ in 0..<packetList.pointee.numPackets {
 
-            // Access packet data bytes via withUnsafePointer
+            let length = Int(packet.length)
+
             withUnsafePointer(to: &packet.data) { tuplePtr in
-                tuplePtr.withMemoryRebound(to: UInt8.self, capacity: Int(packet.length)) { ptr in
-                    for j in 0..<Int(packet.length) {
+                tuplePtr.withMemoryRebound(to: UInt8.self, capacity: length) { ptr in
+
+                    logMidiBytes(ptr, length: length)
+
+                    for j in 0..<length {
                         port.receiveMidiByte(ptr[j])
                     }
                 }
             }
 
             packet = MIDIPacketNext(&packet).pointee
+        }
+    }
+
+    private func logMidiBytes(_ ptr: UnsafePointer<UInt8>, length: Int) {
+
+        var i = 0
+        while i < length {
+            let status = ptr[i]
+            let msgType = status & 0xF0
+            let channel = (status & 0x0F) + 1
+
+            switch msgType {
+            case 0x90 where i + 2 < length:
+                let note = ptr[i + 1]
+                let velocity = ptr[i + 2]
+                if velocity > 0 {
+                    print("MIDI: Note ON  ch=\(channel) note=\(note) vel=\(velocity)")
+                } else {
+                    print("MIDI: Note OFF ch=\(channel) note=\(note)")
+                }
+                i += 3
+
+            case 0x80 where i + 2 < length:
+                let note = ptr[i + 1]
+                let velocity = ptr[i + 2]
+                print("MIDI: Note OFF ch=\(channel) note=\(note) vel=\(velocity)")
+                i += 3
+
+            case 0xB0 where i + 2 < length:
+                let cc = ptr[i + 1]
+                let value = ptr[i + 2]
+                print("MIDI: CC      ch=\(channel) cc=\(cc) value=\(value)")
+                i += 3
+
+            case 0xE0 where i + 2 < length:
+                let lsb = ptr[i + 1]
+                let msb = ptr[i + 2]
+                let bend = (Int(msb) << 7 | Int(lsb)) - 8192
+                print("MIDI: Pitch Bend ch=\(channel) value=\(bend)")
+                i += 3
+
+            case 0xC0 where i + 1 < length:
+                let program = ptr[i + 1]
+                print("MIDI: Program Change ch=\(channel) program=\(program)")
+                i += 2
+
+            case 0xD0 where i + 1 < length:
+                let pressure = ptr[i + 1]
+                print("MIDI: Ch Pressure ch=\(channel) pressure=\(pressure)")
+                i += 2
+
+            case 0xA0 where i + 2 < length:
+                let note = ptr[i + 1]
+                let pressure = ptr[i + 2]
+                print("MIDI: Poly Pressure ch=\(channel) note=\(note) pressure=\(pressure)")
+                i += 3
+
+            case 0xF0:
+                // System messages
+                switch status {
+                case 0xF8: break // Timing clock — skip silently (very frequent)
+                case 0xFE: break // Active sensing — skip silently
+                default:
+                    let hex = String(format: "0x%02X", status)
+                    print("MIDI: System \(hex)")
+                }
+                i += 1
+
+            default:
+                let hex = String(format: "0x%02X", status)
+                print("MIDI: Unknown \(hex)")
+                i += 1
+            }
         }
     }
 
@@ -133,7 +227,7 @@ private func midiNotifyCallback(
 
     let controller = Unmanaged<MIDIController>.fromOpaque(refCon).takeUnretainedValue()
 
-    // Reconnect all sources on setup change (handles hot-plug)
+    print("MIDIController: MIDI setup changed, reconnecting sources")
     controller.disconnectAllSources()
     controller.connectAllSources()
 }
