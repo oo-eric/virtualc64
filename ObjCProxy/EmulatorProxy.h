@@ -9,7 +9,15 @@
 
 #import "config.h"
 #import "VirtualC64Types.h"
+#if TARGET_OS_IOS
+#import <UIKit/UIKit.h>
+// Compatibility typedefs for macOS types used in proxy interfaces
+typedef CGPoint NSPoint;
+typedef CGSize NSSize;
+@class NSColor;
+#else
 #import <Cocoa/Cocoa.h>
+#endif
 #import <MetalKit/MetalKit.h>
 
 using namespace vc64;
@@ -370,7 +378,9 @@ struct GuardInfo {
 @property (readonly) VICIIInfo cachedInfo;
 - (SpriteInfo)getSpriteInfo:(NSInteger)sprite;
 
+#if !TARGET_OS_IOS
 - (NSColor *)color:(NSInteger)nr;
+#endif
 - (UInt32)rgbaColor:(NSInteger)nr palette:(Palette)palette;
 
 @end
@@ -660,7 +670,9 @@ struct GuardInfo {
 
 @interface MediaFileProxy : Proxy
 {
+#if !TARGET_OS_IOS
     NSImage *preview;
+#endif
 }
 
 + (FileType) typeOfUrl:(NSURL *)url;
@@ -681,7 +693,9 @@ struct GuardInfo {
 
 - (void)writeToFile:(NSString *)path exception:(ExceptionWrapper *)ex;
 
+#if !TARGET_OS_IOS
 @property (readonly, strong) NSImage *previewImage;
+#endif
 @property (readonly) time_t timeStamp;
 
 @end

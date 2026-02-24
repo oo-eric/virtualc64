@@ -439,20 +439,22 @@ NSString *EventSlotName(EventSlot slot)
     return [self vicii]->getSpriteInfo((unsigned)sprite);
 }
 
+#if !TARGET_OS_IOS
 - (NSColor *)color:(NSInteger)nr
 {
     assert (0 <= nr && nr < 16);
-    
+
     u32 color = [self vicii]->getColor((unsigned)nr);
     u8 r = color & 0xFF;
     u8 g = (color >> 8) & 0xFF;
     u8 b = (color >> 16) & 0xFF;
-    
+
 	return [NSColor colorWithCalibratedRed:(float)r/255.0
                                      green:(float)g/255.0
                                       blue:(float)b/255.0
                                      alpha:1.0];
 }
+#endif
 
 - (UInt32)rgbaColor:(NSInteger)nr palette:(Palette)palette
 {
@@ -1333,6 +1335,7 @@ NSString *EventSlotName(EventSlot slot)
     catch (AppError &err) { [ex save:err]; }
 }
 
+#if !TARGET_OS_IOS
 - (NSImage *)previewImage
 {
     // Return cached image (if any)
@@ -1364,6 +1367,7 @@ NSString *EventSlotName(EventSlot slot)
     }
     return preview;
 }
+#endif
 
 - (time_t)timeStamp
 {
