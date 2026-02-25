@@ -85,21 +85,35 @@ struct C64KeyboardView: View {
     @State private var activeModifiers: Set<Int> = []
 
     var body: some View {
-        VStack(spacing: 2) {
-            ForEach(0..<keyboardRows.count, id: \.self) { rowIndex in
-                HStack(spacing: 2) {
-                    ForEach(keyboardRows[rowIndex]) { key in
-                        C64KeyButton(
-                            key: key,
-                            isActive: activeModifiers.contains(key.id),
-                            onPress: { pressKey(key) },
-                            onRelease: { releaseKey(key) }
-                        )
+        GeometryReader { geometry in
+            let spacing: CGFloat = 2
+            let padding: CGFloat = 4
+            let availableWidth = geometry.size.width - padding * 2
+            let rowCount = CGFloat(keyboardRows.count)
+            let rowHeight = (geometry.size.height - padding * 2 - spacing * (rowCount - 1)) / rowCount
+
+            VStack(spacing: spacing) {
+                ForEach(0..<keyboardRows.count, id: \.self) { rowIndex in
+                    let row = keyboardRows[rowIndex]
+                    let totalWidth = row.reduce(0) { $0 + $1.width }
+                    let gaps = spacing * CGFloat(row.count - 1)
+                    let unitWidth = (availableWidth - gaps) / totalWidth
+
+                    HStack(spacing: spacing) {
+                        ForEach(row) { key in
+                            C64KeyButton(
+                                key: key,
+                                isActive: activeModifiers.contains(key.id),
+                                onPress: { pressKey(key) },
+                                onRelease: { releaseKey(key) }
+                            )
+                            .frame(width: unitWidth * key.width, height: rowHeight)
+                        }
                     }
                 }
             }
+            .padding(padding)
         }
-        .padding(4)
     }
 
     private func pressKey(_ key: C64KeyDef) {
@@ -149,7 +163,7 @@ struct C64KeyButton: View {
         Text(key.label)
             .font(.system(size: keyFontSize, weight: .medium, design: .monospaced))
             .foregroundColor(isActive ? .black : .white)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .background(
                 RoundedRectangle(cornerRadius: 4)
                     .fill(backgroundColor)
@@ -159,9 +173,6 @@ struct C64KeyButton: View {
                     .stroke(Color.gray.opacity(0.4), lineWidth: 0.5)
             )
             .scaleEffect(isPressed ? 0.95 : 1.0)
-            .frame(maxWidth: .infinity)
-            .frame(minWidth: 0)
-            .layoutPriority(Double(key.width))
             .gesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { _ in
