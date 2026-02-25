@@ -76,8 +76,12 @@ class EmulatorController: ObservableObject {
 
     func startMIDI() {
         midiController = MIDIController()
+        midiController?.onSourcesChanged = { [weak self] sourceCount in
+            Task { @MainActor in
+                self?.midiConnected = sourceCount > 0
+            }
+        }
         midiController?.start(expansionPort: emu.expansionport)
-        midiConnected = (midiController?.active == true)
     }
 
     func shutdown() {

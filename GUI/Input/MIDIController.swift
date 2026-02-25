@@ -24,6 +24,9 @@ class MIDIController {
     // Whether the controller is currently active
     private(set) var active = false
 
+    // Called when the number of connected sources changes
+    var onSourcesChanged: ((Int) -> Void)?
+
     func start(expansionPort: ExpansionPortProxy) {
 
         guard !active else { return }
@@ -60,7 +63,9 @@ class MIDIController {
         connectAllSources()
         active = true
 
-        print("MIDIController: Started (sources: \(MIDIGetNumberOfSources()))")
+        let sourceCount = MIDIGetNumberOfSources()
+        print("MIDIController: Started (sources: \(sourceCount))")
+        onSourcesChanged?(sourceCount)
     }
 
     func stop() {
@@ -230,4 +235,5 @@ private func midiNotifyCallback(
     print("MIDIController: MIDI setup changed, reconnecting sources")
     controller.disconnectAllSources()
     controller.connectAllSources()
+    controller.onSourcesChanged?(MIDIGetNumberOfSources())
 }
