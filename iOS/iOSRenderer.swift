@@ -84,16 +84,19 @@ class iOSRenderer: NSObject, MTKViewDelegate {
 
     private func buildVertexBuffer() {
 
-        // Fullscreen quad: position (x, y) + texcoord (u, v)
-        // We'll compute the visible area from the emulator's inner area
-        var x1: Double = 0, x2: Double = 0, y1: Double = 0, y2: Double = 0
-        emu.videoPort.innerAreaNormalized(&x1, x2: &x2, y1: &y1, y2: &y2)
+        // Allocate buffer for a fullscreen quad: 4 vertices * 4 floats (x, y, u, v)
+        let bufferSize = 16 * MemoryLayout<Float>.size
+        vertexBuffer = device.makeBuffer(length: bufferSize, options: .storageModeShared)
+        updateVertexBuffer()
+    }
 
-        // Convert normalized emulator coords to texture coords
-        let u0 = Float(x1)
-        let u1 = Float(x2)
-        let v0 = Float(y1)
-        let v1 = Float(y2)
+    private func updateVertexBuffer() {
+
+        // PAL visible area within the 520x312 texture (matches macOS TextureRect.swift)
+        let u0 = Float(104.0 / 520.0)
+        let u1 = Float(487.0 / 520.0)
+        let v0 = Float(16.0 / 312.0)
+        let v1 = Float(299.0 / 312.0)
 
         let vertices: [Float] = [
             // x,    y,   u,   v
@@ -103,11 +106,7 @@ class iOSRenderer: NSObject, MTKViewDelegate {
              1.0, -1.0,  u1,  v1,   // bottom-right
         ]
 
-        vertexBuffer = device.makeBuffer(
-            bytes: vertices,
-            length: vertices.count * MemoryLayout<Float>.size,
-            options: .storageModeShared
-        )
+        memcpy(vertexBuffer.contents(), vertices, vertices.count * MemoryLayout<Float>.size)
     }
 
     private func buildPipeline(view: MTKView) {
